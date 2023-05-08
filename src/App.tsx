@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AddOns from "./components/AddOns";
+import FinishingUp from "./components/FinishingUp";
 
 function App() {
   const [enabled, setEnabled] = useState(false);
@@ -16,7 +17,7 @@ function App() {
           </div>
         ))}
       </header>
-      <AddOns enabled={enabled} />
+      <FinishingUp />
     </main>
   );
 }
