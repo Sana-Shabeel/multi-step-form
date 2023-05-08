@@ -1,26 +1,41 @@
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
-import arcade from "../assets/images/icon-arcade.svg";
+import arcadeSvg from "../assets/images/icon-arcade.svg";
+import advancedSvg from "../assets/images/icon-advanced.svg";
+import proSvg from "../assets/images/icon-pro.svg";
 
 const plans = [
   {
     name: "Arcade",
-    price: "$9/mo",
-    icon: "../assets/images/icon-arcade.svg",
+    price: {
+      monthly: "$9/mo",
+      yearly: "$90/yr",
+    },
+    icon: arcadeSvg,
   },
   {
     name: "Advanced",
-    price: "$12/mo",
-    icon: "../assets/images/icon-advanced.svg",
+    price: {
+      monthly: "$12/mo",
+      yearly: "$120/yr",
+    },
+    icon: advancedSvg,
   },
   {
     name: "Pro",
-    price: "$15/mo",
-    icon: "../assets/images/icon-pro.svg",
+    price: {
+      monthly: "$15/mo",
+      yearly: "$150/yr",
+    },
+    icon: proSvg,
   },
 ];
 
-export default function Example() {
+interface Props {
+  enabled: boolean;
+}
+
+export default function Example({ enabled }: Props) {
   const [selected, setSelected] = useState(plans[0]);
 
   return (
@@ -36,29 +51,37 @@ export default function Example() {
                 className={({ active, checked }) =>
                   `${active ? " border-pasteBlue" : ""}
                   ${checked ? "bg-magnolia border-pasteBlue" : ""}
-                    relative flex cursor-pointer rounded-lg px-5 py-4 focus:outline-none border-2`
+                  ${enabled ? "" : "items-center"}
+                    relative flex cursor-pointer rounded-lg focus:outline-none border-2 p-4 w-full gap-4`
                 }
               >
                 <>
-                  <div className="flex w-full items-center gap-2 border border-red">
-                    <div>
-                      <img src={plan.icon} alt={`icon ${plan.name}`} />
-                    </div>
-                    <div>
-                      <div className="text-sm">
-                        <RadioGroup.Label
-                          as="p"
-                          className={`font-bold text-xl`}
+                  <div>
+                    <img src={plan.icon} alt={`icon ${plan.name}`} />
+                  </div>
+                  <div>
+                    <div className="text-sm">
+                      <RadioGroup.Label
+                        as="p"
+                        className={`font-bold text-xl text-marineBlue`}
+                      >
+                        {plan.name}
+                      </RadioGroup.Label>
+                      <RadioGroup.Description
+                        as="span"
+                        className={`text-coolGray`}
+                      >
+                        <p className="my-1">
+                          {enabled ? plan.price.yearly : plan.price.monthly}
+                        </p>
+                        <p
+                          className={`${
+                            enabled ? "" : "hidden"
+                          } text-marineBlue`}
                         >
-                          {plan.name}
-                        </RadioGroup.Label>
-                        <RadioGroup.Description
-                          as="span"
-                          className={`inline text-coolGray`}
-                        >
-                          <span>{plan.price}</span>
-                        </RadioGroup.Description>
-                      </div>
+                          2 month free
+                        </p>
+                      </RadioGroup.Description>
                     </div>
                   </div>
                 </>
