@@ -1,4 +1,3 @@
-import PersonalInfo from "./components/PersonalInfo";
 import SelectPlan from "./components/SelectPlan";
 
 function App() {
