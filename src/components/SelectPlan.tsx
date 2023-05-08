@@ -1,13 +1,15 @@
-import { useState } from "react";
 import Headline from "./Headline";
 import PlanOption from "./PlanOptions";
 import Switch from "./Switch";
 
-const SelectPlan = () => {
-  const [enabled, setEnabled] = useState(false);
+interface Props {
+  enabled: boolean;
+  setEnabled: (enabled: boolean) => void;
+}
 
+const SelectPlan = ({ enabled, setEnabled }: Props) => {
   return (
-    <div className="w-[343px] -mt-20 mx-auto bg-white py-6 px-4 rounded-md grid grid-cols-1 gap-6">
+    <div className="w-[343px] md:w-[450px] -mt-20 mx-auto bg-white py-6 px-4 rounded-md grid grid-cols-1 gap-6">
       <Headline
         title="Select your plan"
         description="You have the option of monthly or annual billing."
