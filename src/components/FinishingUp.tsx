@@ -2,7 +2,7 @@ import Headline from "./Headline";
 
 const FinishingUp = () => {
   return (
-    <div className="w-[343px] md:w-[450px] -mt-20 mx-auto bg-white py-6 px-4 rounded-md grid grid-cols-1 gap-6">
+    <div className="w-[343px] sm:w-[70%] lg:w-[50%] -mt-20 mx-auto bg-white py-6 px-4 rounded-md grid grid-cols-1 gap-6 xl:mx-0 xl:m-12 xl:w-[450px] xl:p-0 xl:h-96">
       <Headline
         title="Finishing up"
         description="Double-check everything looks OK before confirming."
@@ -14,7 +14,9 @@ const FinishingUp = () => {
             <h3 className="text-md text-marineBlue font-bold">
               Arcade (Yearly)
             </h3>
-            <button className="text-ms text-coolGray underline">Change</button>
+            <button className="text-ms text-coolGray underline hover:text-publishBlue">
+              Change
+            </button>
           </div>
           <p className="font-bold">$90/yr</p>
         </div>
