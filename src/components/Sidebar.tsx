@@ -1,6 +1,10 @@
 import React from "react";
 
-const Sidebar = () => {
+interface SidebarProps {
+  step: number;
+}
+
+const Sidebar = ({ step }: SidebarProps) => {
   const steps = [
     {
       id: 1,
@@ -23,22 +27,24 @@ const Sidebar = () => {
       description: "SUMMARY",
     },
   ];
+  console.log(step);
+
   return (
     <aside className="hidden w-[274px] xl:block bg-white h-[568px] bg-sidebar-desktop bg-cover bg-center">
       <div className="px-8 py-8">
-        {steps.map((step) => (
-          <div className="mb-6 flex items-center gap-4" key={step.id}>
+        {steps.map(({ id, title, description }) => (
+          <div className="mb-6 flex items-center gap-4" key={id}>
             <div
-              className="w-8 h-8 rounded-full bg-transparent grid place-content-center border text-white "
-              key={step.id}
+              className={`${
+                step === id - 1 ? "bg-lightGray text-black" : ""
+              } w-9 h-9 rounded-full bg-transparent grid place-content-center border text-white `}
+              key={id}
             >
-              {step.id}
+              {id}
             </div>
             <div>
-              <p className="text-sm text-coolGray">
-                {step.title.toUpperCase()}
-              </p>
-              <h3 className="text-md text-white mb-1">{step.description}</h3>
+              <p className="text-sm text-coolGray">{title.toUpperCase()}</p>
+              <h3 className="text-md text-white mb-1">{description}</h3>
             </div>
           </div>
         ))}
