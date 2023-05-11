@@ -1,5 +1,3 @@
-import React from "react";
-
 interface SidebarProps {
   step: number;
 }
@@ -27,7 +25,6 @@ const Sidebar = ({ step }: SidebarProps) => {
       description: "SUMMARY",
     },
   ];
-  console.log(step);
 
   return (
     <aside className="hidden w-[274px] xl:block bg-white h-[568px] bg-sidebar-desktop bg-cover bg-center">
