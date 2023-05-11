@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
-import arcadeSvg from "../../assets/images/icon-arcade.svg";
+import { useCallback, useContext, useEffect, useState } from "react";
 import advancedSvg from "../../assets/images/icon-advanced.svg";
+import arcadeSvg from "../../assets/images/icon-arcade.svg";
 import proSvg from "../../assets/images/icon-pro.svg";
+import { FormDataContext } from "../../context/FormDataContext";
 
 const plans = [
   {
@@ -37,6 +38,20 @@ interface Props {
 
 export default function TogglePlan({ enabled }: Props) {
   const [selected, setSelected] = useState(plans[0]);
+  const { updateFormData } = useContext(FormDataContext);
+
+  const updatePlan = useCallback(() => {
+    const value = enabled ? selected.price.yearly : selected.price.monthly;
+    updateFormData("plan", `${selected.name} ${value}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled, selected, updateFormData]);
+
+  useEffect(() => {
+    updatePlan();
+    console.log("selected", `${selected.name} ${selected.price.monthly}`);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updatePlan]);
 
   return (
     <div className="w-full">
