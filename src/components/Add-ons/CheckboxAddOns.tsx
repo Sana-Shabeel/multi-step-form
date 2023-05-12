@@ -1,40 +1,51 @@
-import { useState } from "react";
-import { AddOn } from "./AddOns";
+import { useContext, useEffect } from "react";
 import checkmark from "../../assets/images/icon-checkmark.svg";
+import { AddOn } from "./AddOns";
+import { FormDataContext } from "../../context/FormDataContext";
 // import advancedSvg from "../../assets/images/icon-advanced.svg";
 
 interface Props {
   addOn: AddOn;
   enabled: boolean;
-  checked: boolean;
-  // handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  // checked: boolean;
+  handleChange: (id: number) => void;
 }
 
-const CheckboxAddOns = ({ addOn, enabled, checked }: Props) => {
-  const [isChecked, setIsChecked] = useState(checked);
+const CheckboxAddOns = ({ addOn, enabled, handleChange }: Props) => {
+  const { updateFormData } = useContext(FormDataContext);
 
-  const handleChange = () => {
-    setIsChecked((current) => !current);
-  };
+  useEffect(() => {
+    const value = enabled ? addOn.price.yearly : addOn.price.monthly;
+    const title = addOn.title.split(" ")[0];
 
-  console.log(isChecked, "checked");
+    if (addOn.checked) {
+      updateFormData(title, {
+        title: addOn.title,
+        price: value,
+        status: addOn.checked,
+      });
+    } else {
+      updateFormData(title, undefined);
+    }
+    console.log("useEffect");
+  }, [addOn, enabled, updateFormData]);
 
   return (
     <div
       className={`${
-        isChecked ? "border-publishBlue bg-alabaster" : "border-magnolia"
+        addOn.checked ? "border-publishBlue bg-alabaster" : "border-magnolia"
       }
        flex justify-between items-center  py-5 px-4 rounded-lg  border-2  cursor-pointer xl:justify-start xl:gap-12 xl:relative hover:border-publishBlue`}
-      onClick={handleChange}
+      onClick={() => handleChange(addOn.id)}
     >
       <div
         className={`grid h-6 w-6  place-items-center rounded ${
-          isChecked
+          addOn.checked
             ? "bg-violet"
             : "cursor-pointer border-2 border-lightGray dark:bg-darkGray"
         }`}
       >
-        {isChecked && (
+        {addOn.checked && (
           <img
             src={checkmark}
             className="bg-publishBlue w-full h-full rounded"
