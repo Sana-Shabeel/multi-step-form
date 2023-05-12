@@ -1,17 +1,15 @@
 import { createContext, useCallback, useState } from "react";
 
 interface FormData {
-  [key: string]: string | number | boolean | undefined;
+  [key: string]: string | number | boolean | undefined | object;
 }
 
 interface FormDataContextProps {
   formData: FormData;
   updateFormData: (
     key: string,
-    value: string | number | boolean | undefined
+    value: string | number | boolean | undefined | object
   ) => void;
-  setEnabled: React.Dispatch<React.SetStateAction<boolean>>;
-  enabled: boolean;
 }
 
 export const FormDataContext = createContext<FormDataContextProps>({
@@ -19,8 +17,6 @@ export const FormDataContext = createContext<FormDataContextProps>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   updateFormData: () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setEnabled: () => {},
-  enabled: false,
 });
 
 interface FormDataProviderProps {
@@ -29,11 +25,10 @@ interface FormDataProviderProps {
 
 export const FormDataProvider = ({ children }: FormDataProviderProps) => {
   const [formData, setFormData] = useState<FormData>({});
-  const [enabled, setEnabled] = useState(false);
 
   //This ensures that the function is only created once and memoized as long as the setFormData function does not change.
   const updateFormData = useCallback(
-    (key: string, value: string | number | boolean | undefined) => {
+    (key: string, value: string | number | boolean | undefined | object) => {
       setFormData((prevData) => ({ ...prevData, [key]: value }));
     },
     [setFormData]
@@ -42,9 +37,7 @@ export const FormDataProvider = ({ children }: FormDataProviderProps) => {
   console.log(formData);
 
   return (
-    <FormDataContext.Provider
-      value={{ formData, updateFormData, setEnabled, enabled }}
-    >
+    <FormDataContext.Provider value={{ formData, updateFormData }}>
       {children}
     </FormDataContext.Provider>
   );
