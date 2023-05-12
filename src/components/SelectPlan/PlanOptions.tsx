@@ -42,8 +42,7 @@ export default function TogglePlan({ enabled }: Props) {
 
   const updatePlan = useCallback(() => {
     const value = enabled ? selected.price.yearly : selected.price.monthly;
-    updateFormData("plan", `${selected.name} ${value}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    updateFormData("plan", `${selected.name} - ${value}`);
   }, [enabled, selected, updateFormData]);
 
   useEffect(() => {
