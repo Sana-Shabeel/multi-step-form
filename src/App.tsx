@@ -23,7 +23,7 @@ function App() {
     <PersonalInfo />,
     <SelectPlan enabled={enabled} setEnabled={setEnabled} />,
     <AddOns enabled={enabled} />,
-    <FinishingUp />,
+    <FinishingUp yearly={enabled} />,
     <ThankYou />,
   ]);
 
