@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Headline from "../Headline";
 import CheckboxAddOns from "./CheckboxAddOns";
 
@@ -12,7 +13,7 @@ export interface AddOn {
   checked: boolean;
 }
 
-const addOns: AddOn[] = [
+const pickAddOns: AddOn[] = [
   {
     id: 1,
     title: "Online services",
@@ -50,18 +51,30 @@ interface Props {
 }
 
 const AddOns = ({ enabled }: Props) => {
+  const [addOn, setAddOn] = useState(pickAddOns);
+
+  const handleChange = (id: number) => {
+    setAddOn((prev) =>
+      prev.map((addOn) =>
+        id === addOn.id ? { ...addOn, checked: !addOn.checked } : addOn
+      )
+    );
+
+    console.log("handleChange");
+  };
+
   return (
     <div className="w-[343px] sm:w-[70%] lg:w-[50%] -mt-20 mx-auto bg-white py-6 px-4 rounded-md grid grid-cols-1 gap-6 xl:mx-0 xl:m-12 xl:w-[450px] xl:p-0 xl:h-96">
       <Headline
         title="Pick add-ons"
         description="Add-ons help enhance your gaming experience"
       />
-      {addOns.map((addOn) => (
+      {addOn.map((addOn) => (
         <CheckboxAddOns
           key={addOn.id}
           addOn={addOn}
           enabled={enabled}
-          checked={addOn.checked}
+          handleChange={handleChange}
         />
       ))}
     </div>
