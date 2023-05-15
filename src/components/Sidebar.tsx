@@ -33,8 +33,10 @@ const Sidebar = ({ step }: SidebarProps) => {
           <div className="mb-6 flex items-center gap-4" key={id}>
             <div
               className={`${
-                step === id - 1 ? "bg-lightGray text-black" : ""
-              } w-9 h-9 rounded-full bg-transparent grid place-content-center border text-white `}
+                step + 1 === id
+                  ? "bg-lightGray text-black"
+                  : "bg-transparent text-white"
+              } w-9 h-9 rounded-full grid place-content-center border  `}
               key={id}
             >
               {id}
