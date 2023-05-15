@@ -29,7 +29,7 @@ const FinishingUp = ({ yearly }: Props) => {
     }
     addOns.forEach((addOn) => {
       if (addOn && addOn?.price) {
-        totalPrice += parseFloat(addOn?.price);
+        totalPrice += addOn?.price;
       }
     });
     return totalPrice;
