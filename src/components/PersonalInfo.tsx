@@ -3,7 +3,8 @@ import { FormDataContext } from "../context/FormDataContext";
 import Headline from "./Headline";
 
 const PersonalInfo = () => {
-  const { updateFormData } = useContext(FormDataContext);
+  const { updateFormData, formData, validationErrors } =
+    useContext(FormDataContext);
 
   const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateFormData(e.target.name, e.target.value);
@@ -15,42 +16,73 @@ const PersonalInfo = () => {
         description="Please provide your name, email address, and phone number."
       />
       <div>
-        <label htmlFor="name" className="text-gray-700 block text-sm mb-1">
-          Name
-        </label>
+        <div className="xl:flex justify-between">
+          <label htmlFor="name" className="text-gray-700 block text-sm mb-1">
+            Name
+          </label>
+          {validationErrors.name && (
+            <span className="text-red-500 text-md">
+              {validationErrors.name}
+            </span>
+          )}
+        </div>
         <input
           type="text"
           placeholder="e.g. John Doe"
           id="name"
           name="name"
+          value={formData.name || ""}
           onChange={handleChanges}
-          className="border-gray-300 block w-full rounded-md border py-2 pl-3 shadow-sm outline-none focus:border-b-4 focus:border-marineBlue sm:text-sm xl:py-4"
+          className={`${
+            validationErrors.phone && "border-red-500 border-2"
+          } border-gray-300 block w-full rounded-md border py-2 pl-3 shadow-sm outline-none focus:border-b-4 focus:border-marineBlue sm:text-sm xl:py-4`}
         />
       </div>
       <div>
-        <label htmlFor="email" className="text-gray-700 block text-sm mb-1">
-          Email Address
-        </label>
+        <div className="xl:flex justify-between">
+          <label htmlFor="email" className="text-gray-700 block text-sm mb-1">
+            Email Address
+          </label>
+          {validationErrors.email && (
+            <span className="text-red-500 text-md">
+              {validationErrors.email}
+            </span>
+          )}
+        </div>
         <input
           type="text"
           placeholder="e.g. johndoe@lorem.com"
           id="email"
           name="email"
+          value={formData.email || ""}
           onChange={handleChanges}
-          className="border-gray-300 block w-full rounded-md border py-2 pl-3 shadow-sm outline-none focus:border-b-4 focus:border-marineBlue sm:text-sm xl:py-4"
+          className={`${
+            validationErrors.email && "border-red-500 border-2"
+          } border-gray-300 block w-full rounded-md border py-2 pl-3 shadow-sm outline-none focus:border-b-4 focus:border-marineBlue sm:text-sm xl:py-4`}
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="number" className="text-gray-700 block text-sm mb-1">
-          Phone Number
-        </label>
+        <div className="xl:flex justify-between">
+          <label htmlFor="number" className="text-gray-700 block text-sm mb-1">
+            Phone Number
+          </label>
+          {validationErrors.phone && (
+            <span className="text-red-500 text-md">
+              {validationErrors.phone}
+            </span>
+          )}
+        </div>
         <input
           type="number"
+          // required
           placeholder="e.g. +1 234 567 890"
           id="number"
-          name="number"
+          name="phone"
+          value={formData.phone || ""}
           onChange={handleChanges}
-          className="border-gray-300 block w-full rounded-md border py-2 pl-3 shadow-sm outline-none focus:border-b-4 focus:border-marineBlue sm:text-sm xl:py-4"
+          className={`${
+            validationErrors.phone && "border-red-500 border-2"
+          } border-gray-300 block w-full rounded-md border py-2 pl-3 shadow-sm outline-none focus:border-b-4 focus:border-marineBlue sm:text-sm xl:py-4 `}
         />
       </div>
     </div>
